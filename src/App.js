@@ -3,7 +3,8 @@ import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client
 import { Box, Tab } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 // import './App.css';
-import User from './components/Users';
+import Users from './components/Users';
+import Posts from './components/Posts'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql/',
@@ -11,7 +12,7 @@ const client = new ApolloClient({
 })
 
 function App() {
-  const [tabValue, setTabValue] = useState('1');
+  const [tabValue, setTabValue] = useState('2');
 
   const handleTabValue = (event, value) => {
     setTabValue(value);
@@ -30,9 +31,11 @@ function App() {
             </TabList>
           </Box>
           <TabPanel value="1">
-            <User />
+            <Users />
           </TabPanel>
-          <TabPanel value="2">Item Two</TabPanel>
+          <TabPanel value="2">
+            <Posts/>
+          </TabPanel>
           <TabPanel value="3">Item Three</TabPanel>
         </TabContext>
           

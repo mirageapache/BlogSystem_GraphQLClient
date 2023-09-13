@@ -3,8 +3,8 @@ import { gql, useQuery } from "@apollo/client";
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
 import { Paper } from '@mui/material';
 
-const getUserQuery = gql`
-  query GetUserQuery{
+const getUsersList = gql`
+  query getUsersList{
     users {
       id
       name
@@ -16,7 +16,7 @@ const getUserQuery = gql`
 
 function Users(props) {
 
-  const {data, loading, error} = useQuery(getUserQuery);
+  const {data, loading, error} = useQuery(getUsersList);
 
   if(loading) return "Loading...";
   if(error) return <pre>{error.message}</pre>
