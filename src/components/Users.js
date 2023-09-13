@@ -21,14 +21,9 @@ function Users(props) {
   if(loading) return "Loading...";
   if(error) return <pre>{error.message}</pre>
   if(data) {
-    const lists = data.users.map(user => 
-      <li key={user.id}>{user.name}</li>
-    )
     return (
       <div>
         <h1>User List</h1>
-        <ul>{lists}</ul>
-
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -54,7 +49,6 @@ function Users(props) {
             </TableBody>
           </Table>
         </TableContainer>
-
       </div>
     )
   }

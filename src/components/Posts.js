@@ -36,7 +36,6 @@ export default function Posts() {
   }
 }
 
-
 function PostCard({data}) {
   return (
     <div>
