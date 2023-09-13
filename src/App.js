@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
-import logo from './logo.svg';
-import './App.css';
+import { Box, Tab } from '@mui/material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+// import './App.css';
 import User from './components/Users';
 
 const client = new ApolloClient({
@@ -9,16 +11,31 @@ const client = new ApolloClient({
 })
 
 function App() {
+  const [tabValue, setTabValue] = useState('1');
+
+  const handleTabValue = (event, value) => {
+    setTabValue(value);
+  }
 
   return (
     <ApolloProvider client={client}>
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <User />
+        <TabContext value={tabValue}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={handleTabValue} aria-label="lab API tabs example">
+              <Tab label="User List" value="1" />
+              <Tab label="Post List" value="2" />
+              <Tab label="Item Three" value="3" />
+            </TabList>
+          </Box>
+          <TabPanel value="1">
+            <User />
+          </TabPanel>
+          <TabPanel value="2">Item Two</TabPanel>
+          <TabPanel value="3">Item Three</TabPanel>
+        </TabContext>
+          
         </header>
       </div>
     </ApolloProvider>
