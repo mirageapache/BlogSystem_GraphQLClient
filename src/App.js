@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { Box, Tab } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import Users from './components/Users';
-import Posts from './components/Posts';
+import Posts from './components/post/Posts';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql/',
@@ -11,7 +11,7 @@ const client = new ApolloClient({
 })
 
 function App() {
-  const [tabValue, setTabValue] = useState('1');
+  const [tabValue, setTabValue] = useState('2');
 
   const handleTabValue = (event, value) => {
     setTabValue(value);

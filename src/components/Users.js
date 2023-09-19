@@ -1,6 +1,7 @@
 import React from 'react'
 import { gql, useQuery } from "@apollo/client";
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { Button } from '@mui/material';
 import { Paper } from '@mui/material';
 
 const getUsersList = gql`
@@ -32,6 +33,7 @@ function Users(props) {
                 <TableCell>Name</TableCell>
                 <TableCell>E-mail</TableCell>
                 <TableCell>Age</TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -44,6 +46,7 @@ function Users(props) {
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.age}</TableCell>
+                  <TableCell><Button variant='outlined'>編輯</Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>

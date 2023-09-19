@@ -1,42 +1,8 @@
 import React from 'react'
 import { Card, CardContent, Typography, CardActions } from '@mui/material';
 import { Button } from '@mui/material'
-import { gql, useQuery } from '@apollo/client';
 
-export default function Posts() {
-  const getPostsList = gql`
-    query getPostsList{
-      posts{
-        id
-        title
-        content
-        author {
-          name
-        }
-        likeGivers {
-          id
-        }
-        createdAt
-      }
-    }
-  `;
-
-  const {data, loading, error} = useQuery(getPostsList);
-  if(loading) return <p>Loading...</p>
-  if(error) return <pre>{error.message}</pre>
-  if(data) {
-    return (
-      <div>
-        <h1>Post List</h1>
-        {data.posts.map(post => 
-          <PostCard key={post.id} data={post} />
-        )}
-      </div>
-    )
-  }
-}
-
-function PostCard({data}) {
+export default function PostCard({data}) {
   return (
     <div>
       <Card sx={{ margin: 3, minWidth: 275 }}>
