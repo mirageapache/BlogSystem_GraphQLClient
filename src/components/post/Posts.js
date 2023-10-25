@@ -34,7 +34,7 @@ export default function Posts() {
     client.query({
       query: getPostsList
     }).then((res) => {
-      console.log(res);
+      // console.log(res);
 
       if(res.loading){
         setStatus('loading');
@@ -50,14 +50,12 @@ export default function Posts() {
   }
 
   const handleModalClose = () =>{
-    setStatus('rerender')
     setModalOpen(false)
-    // getPostData();
   }
 
   useEffect(() => {
-    console.log(status)
     if(status === 'rerender'){
+      // console.log(status)
       getPostData()
     }
   },[postData,status])
@@ -75,7 +73,7 @@ return (
           <PostCard key={post.id} data={post} />
         )}
       </div>
-      <NewPostModal open={modalOpen} onClose={handleModalClose} />
+      <NewPostModal open={modalOpen} rerender={()=>setStatus('rerender')} onClose={handleModalClose} />
     </div>
     }
    </> 

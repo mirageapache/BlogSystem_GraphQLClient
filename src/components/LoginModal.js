@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { Modal, Box, TextField, Button } from '@mui/material'
 
-export default function NewPostModal({open, rerender, onClose}) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+export default function LoginModal({open, onClose}) {
+  const [token, setToken] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const client = useApolloClient();
 
   const style = {
@@ -26,37 +27,27 @@ export default function NewPostModal({open, rerender, onClose}) {
     mt:3,
     ml:1
   }
-  
+
   // add post funtion
-  const addNewPost = async () =>{
+  const handleLogin = async () =>{
     try{
+      console.log(email)
       await client.mutate({
         mutation: gql`
-          mutation addPost($title: String!, $content: String){
-            addPost(title: $title, content: $content){
-              id
-              title
-              content
-              author {
-                name
-              }
-              likeGivers {
-                id
-              }
-              createdAt
+          mutation Login($email: String!, $password: String!){
+            login(email: $email, password: $password){
+              token
             }
           }
         `,
         variables: {
-          title,
-          content
+          email,
+          password
         },
       }).then((res) => {
         console.log(res);
+        localStorage.setItem('x-token', res.data.login.token)
       });
-      setTitle('');
-      setContent('');
-      rerender();
       onClose();
     }
     catch(error){
@@ -74,26 +65,26 @@ export default function NewPostModal({open, rerender, onClose}) {
       >
         <Box sx={style}>
           <h1 sx={{ m:1 }}>
-            Add Post
+            Login
           </h1>
           <div>
             <TextField 
-              id="title_input" 
-              label="Title" 
+              id="email_input" 
+              label="Email" 
               variant="standard" 
               sx={input} 
-              value={title} 
-              onChange={(e)=>{setTitle(e.target.value)}}
+              value={email} 
+              onChange={(e)=>{setEmail(e.target.value)}}
             />
           </div>
           <div>
             <TextField 
-              id="content_input" 
-              label="Content" 
+              id="password_input" 
+              label="Password" 
               variant="standard" 
               sx={input} 
-              value={content}
-              onChange={(e)=>{setContent(e.target.value)}}
+              value={password}
+              onChange={(e)=>{setPassword(e.target.value)}}
             />
           </div>
 
@@ -104,9 +95,9 @@ export default function NewPostModal({open, rerender, onClose}) {
               size='small' 
               color='success' 
               sx={btn} 
-              onClick={addNewPost}
+              onClick={handleLogin}
             >
-              add post
+              Login
             </Button>
           </div>
         </Box>
